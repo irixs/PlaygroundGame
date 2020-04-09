@@ -1,10 +1,16 @@
-import UIKit
+//: A SpriteKit based Playground
+
 import PlaygroundSupport
+import SpriteKit
+import UIKit
 import Foundation
 
 var lvl1 = false
 var lvl2 = false
 var lvl3 = false
+
+//level1Button.isUserInteractionEnabled = false
+//level1Button.alpha = 0.3
 
 class StartViewController: UIViewController {
     override func loadView() {
@@ -37,43 +43,45 @@ class MenuViewController: UIViewController {
     override func loadView() {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
-        view.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
+        view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        let title = UILabel()
-        title.text = "Menu"
-        title.textColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
-        title.font.withSize(30)
+        let backgroundImage = UIImage(named: "menu.png")!
+        let background = UIImageView(image: backgroundImage)
+        background.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         
+        let tutorialButtonImage = UIImage(named: "tutorial.png")
+        let tutorialButton = UIButton()
+        tutorialButton.setImage(tutorialButtonImage, for: .normal)
+        tutorialButton.frame = CGRect(x: 402.44, y: 231.17, width: 207.33, height: 42.48)
+        
+        let level1ButtonImage = UIImage(named: "nivel-1.png")
         let level1Button = UIButton()
-        level1Button.setTitle("level 1", for: .normal)
-        if (lvl1) {
-             level1Button.setTitleColor(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), for: .normal)
-        } else{
-             level1Button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        }
-        level1Button.frame = CGRect(x: 362, y: 300, width: 300, height: 300)
+        level1Button.setImage(level1ButtonImage, for: .normal)
+        level1Button.frame = CGRect(x: 421, y: 497, width: 166.08, height: 42.41)
         level1Button.addTarget(nil, action: #selector(level1Select), for: .touchUpInside)
         
+        let level2ButtonImage = UIImage(named: "nivel-2.png")
         let level2Button = UIButton()
-        level2Button.setTitle("level 2", for: .normal)
-        if (lvl2) {
-             level2Button.setTitleColor(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), for: .normal)
-        } else{
-             level2Button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        }
-        level2Button.frame = CGRect(x: 362, y: 533, width: 300, height: 300)
+        level2Button.setImage(level2ButtonImage, for: .normal)
+        level2Button.frame = CGRect(x: 419, y: 787, width: 177.75, height: 42.41)
         level2Button.addTarget(nil, action: #selector(level2Select), for: .touchUpInside)
-        
-        let level3Button = UIButton()
-        level3Button.setTitle("level 3", for: .normal)
-        if (lvl3) {
-             level3Button.setTitleColor(#colorLiteral(red: 0.3411764801, green: 0.6235294342, blue: 0.1686274558, alpha: 1), for: .normal)
-        } else{
-             level3Button.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+        if (!lvl1) {
+            level2Button.isUserInteractionEnabled = false
+            level2Button.alpha = 0.3
         }
-        level3Button.frame = CGRect(x: 362, y: 800, width: 300, height: 300)
-        level3Button.addTarget(nil, action: #selector(level3Select), for: .touchUpInside)
         
+        let level3ButtonImage = UIImage(named: "nivel-3.png")
+        let level3Button = UIButton()
+        level3Button.setImage(level3ButtonImage, for: .normal)
+        level3Button.frame = CGRect(x: 419, y: 1077, width: 178.32, height: 42.55)
+        level3Button.addTarget(nil, action: #selector(level3Select), for: .touchUpInside)
+        if (!lvl2) {
+            level3Button.isUserInteractionEnabled = false
+            level3Button.alpha = 0.3
+        }
+        
+        view.addSubview(background)
+        view.addSubview(tutorialButton)
         view.addSubview(level1Button)
         view.addSubview(level2Button)
         view.addSubview(level3Button)
@@ -83,16 +91,16 @@ class MenuViewController: UIViewController {
         loadView()
     }
     @IBAction func level1Select() {
-            navigationController?.show(level1, sender: nil)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.show(level1, sender: nil)
+        navigationController?.navigationBar.isHidden = true
     }
     @IBAction func level2Select() {
-            navigationController?.show(level2, sender: nil)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.show(level2, sender: nil)
+        navigationController?.navigationBar.isHidden = true
     }
     @IBAction func level3Select() {
-            navigationController?.show(level3, sender: nil)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.show(level3, sender: nil)
+        navigationController?.navigationBar.isHidden = true
     }
 }
 class LevelOneViewController: UIViewController {
@@ -119,8 +127,8 @@ class LevelOneViewController: UIViewController {
         self.view = view
     }
     @IBAction func goToMenu() {
-            navigationController?.popToViewController(menu, animated: true)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.popToViewController(menu, animated: true)
+        navigationController?.navigationBar.isHidden = true
     }
 }
 class LevelTwoViewController: UIViewController {
@@ -129,7 +137,7 @@ class LevelTwoViewController: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-
+        
         let nextLevelButton = UIButton()
         nextLevelButton.setTitle("parabéns bença", for: .normal)
         nextLevelButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
@@ -147,8 +155,8 @@ class LevelTwoViewController: UIViewController {
         self.view = view
     }
     @IBAction func goToMenu() {
-            navigationController?.popToViewController(menu, animated: true)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.popToViewController(menu, animated: true)
+        navigationController?.navigationBar.isHidden = true
     }
 }
 class LevelThreeViewController: UIViewController {
@@ -157,7 +165,7 @@ class LevelThreeViewController: UIViewController {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         view.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-
+        
         let nextLevelButton = UIButton()
         nextLevelButton.setTitle("parabens vc zerou", for: .normal)
         nextLevelButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
@@ -175,8 +183,8 @@ class LevelThreeViewController: UIViewController {
         self.view = view
     }
     @IBAction func goToMenu() {
-            navigationController?.popToViewController(menu, animated: true)
-            navigationController?.navigationBar.isHidden = true
+        navigationController?.popToViewController(menu, animated: true)
+        navigationController?.navigationBar.isHidden = true
     }
 }
 let start = StartViewController()
