@@ -5,13 +5,12 @@ import SpriteKit
 import UIKit
 import Foundation
 
+//pra bloquear os níveis subsequentes
 var lvl1 = false
 var lvl2 = false
 var lvl3 = false
 
-//level1Button.isUserInteractionEnabled = false
-//level1Button.alpha = 0.3
-
+//tela de start
 class StartViewController: UIViewController {
     override func loadView() {
         navigationController?.navigationBar.isHidden = true
@@ -39,6 +38,7 @@ class StartViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
+//tela de menu
 class MenuViewController: UIViewController {
     override func loadView() {
         let view = UIView()
@@ -53,6 +53,7 @@ class MenuViewController: UIViewController {
         let tutorialButton = UIButton()
         tutorialButton.setImage(tutorialButtonImage, for: .normal)
         tutorialButton.frame = CGRect(x: 402.44, y: 231.17, width: 207.33, height: 42.48)
+        tutorialButton.addTarget(nil, action: #selector(tutorialSelect), for: .touchUpInside)
         
         let level1ButtonImage = UIImage(named: "nivel-1.png")
         let level1Button = UIButton()
@@ -90,6 +91,10 @@ class MenuViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         loadView()
     }
+    @IBAction func tutorialSelect() {
+        navigationController?.show(tutorial, sender: nil)
+        navigationController?.navigationBar.isHidden = true
+    }
     @IBAction func level1Select() {
         navigationController?.show(level1, sender: nil)
         navigationController?.navigationBar.isHidden = true
@@ -103,6 +108,27 @@ class MenuViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
+//tutorial
+class TutorialViewController: UIViewController {
+override func loadView() {
+    let view = UIView()
+    view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
+    view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
+    
+    let menuButton = UIButton()
+    menuButton.setTitle("Menu", for: .normal)
+    menuButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
+    menuButton.frame = CGRect(x: 362, y: 250, width: 300, height: 300)
+    menuButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
+    view.addSubview(menuButton)
+    self.view = view
+    }
+    @IBAction func goToMenu() {
+        navigationController?.popToViewController(menu, animated: true)
+        navigationController?.navigationBar.isHidden = true
+    }
+}
+//nivel 1
 class LevelOneViewController: UIViewController {
     override func loadView() {
         lvl1 = true
@@ -110,19 +136,12 @@ class LevelOneViewController: UIViewController {
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
-        let nextLevelButton = UIButton()
-        nextLevelButton.setTitle("parabéns bença", for: .normal)
-        nextLevelButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        nextLevelButton.frame = CGRect(x: 362, y: 533, width: 300, height: 300)
-        nextLevelButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
-        
         let menuButton = UIButton()
         menuButton.setTitle("Menu", for: .normal)
         menuButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
         menuButton.frame = CGRect(x: 362, y: 250, width: 300, height: 300)
         menuButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
         
-        view.addSubview(nextLevelButton)
         view.addSubview(menuButton)
         self.view = view
     }
@@ -131,18 +150,13 @@ class LevelOneViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
+//nivel 2
 class LevelTwoViewController: UIViewController {
     override func loadView() {
         lvl2 = true
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
-        view.backgroundColor = #colorLiteral(red: 0.9098039269, green: 0.4784313738, blue: 0.6431372762, alpha: 1)
-        
-        let nextLevelButton = UIButton()
-        nextLevelButton.setTitle("parabéns bença", for: .normal)
-        nextLevelButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        nextLevelButton.frame = CGRect(x: 362, y: 533, width: 300, height: 300)
-        nextLevelButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
+        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         let menuButton = UIButton()
         menuButton.setTitle("Menu", for: .normal)
@@ -150,7 +164,6 @@ class LevelTwoViewController: UIViewController {
         menuButton.frame = CGRect(x: 362, y: 250, width: 300, height: 300)
         menuButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
         
-        view.addSubview(nextLevelButton)
         view.addSubview(menuButton)
         self.view = view
     }
@@ -159,18 +172,13 @@ class LevelTwoViewController: UIViewController {
         navigationController?.navigationBar.isHidden = true
     }
 }
+//nivel 3
 class LevelThreeViewController: UIViewController {
     override func loadView() {
         lvl3 = true
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
-        view.backgroundColor = #colorLiteral(red: 0.4745098054, green: 0.8392156959, blue: 0.9764705896, alpha: 1)
-        
-        let nextLevelButton = UIButton()
-        nextLevelButton.setTitle("parabens vc zerou", for: .normal)
-        nextLevelButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-        nextLevelButton.frame = CGRect(x: 362, y: 533, width: 300, height: 300)
-        nextLevelButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
+        view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
         
         let menuButton = UIButton()
         menuButton.setTitle("Menu", for: .normal)
@@ -178,7 +186,6 @@ class LevelThreeViewController: UIViewController {
         menuButton.frame = CGRect(x: 362, y: 250, width: 300, height: 300)
         menuButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
         
-        view.addSubview(nextLevelButton)
         view.addSubview(menuButton)
         self.view = view
     }
@@ -189,6 +196,7 @@ class LevelThreeViewController: UIViewController {
 }
 let start = StartViewController()
 let menu = MenuViewController()
+let tutorial = TutorialViewController()
 let level1 = LevelOneViewController()
 let level2 = LevelTwoViewController()
 let level3 = LevelThreeViewController()
