@@ -19,11 +19,11 @@ class StartViewController: UIViewController {
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        let backgroundImage = UIImage(named: "tela-inicial.png")!
+        let backgroundImage = UIImage(named: "start/tela-inicial.png")!
         let background = UIImageView(image: backgroundImage)
         background.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         
-        let startButtonImage = UIImage(named: "botao-start.png")!
+        let startButtonImage = UIImage(named: "start/botao-start.png")!
         let startButton = UIButton()
         startButton.setImage(startButtonImage, for: .normal)
         startButton.frame = CGRect(x: 362, y: 533, width: 300, height: 300)
@@ -45,23 +45,23 @@ class MenuViewController: UIViewController {
         view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         view.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
         
-        let backgroundImage = UIImage(named: "menu.png")!
+        let backgroundImage = UIImage(named: "menu/menu.png")!
         let background = UIImageView(image: backgroundImage)
         background.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
         
-        let tutorialButtonImage = UIImage(named: "tutorial.png")
+        let tutorialButtonImage = UIImage(named: "menu/tutorial.png")
         let tutorialButton = UIButton()
         tutorialButton.setImage(tutorialButtonImage, for: .normal)
         tutorialButton.frame = CGRect(x: 402.44, y: 231.17, width: 207.33, height: 42.48)
         tutorialButton.addTarget(nil, action: #selector(tutorialSelect), for: .touchUpInside)
         
-        let level1ButtonImage = UIImage(named: "nivel-1.png")
+        let level1ButtonImage = UIImage(named: "menu/nivel-1.png")
         let level1Button = UIButton()
         level1Button.setImage(level1ButtonImage, for: .normal)
         level1Button.frame = CGRect(x: 421, y: 497, width: 166.08, height: 42.41)
         level1Button.addTarget(nil, action: #selector(level1Select), for: .touchUpInside)
         
-        let level2ButtonImage = UIImage(named: "nivel-2.png")
+        let level2ButtonImage = UIImage(named: "menu/nivel-2.png")
         let level2Button = UIButton()
         level2Button.setImage(level2ButtonImage, for: .normal)
         level2Button.frame = CGRect(x: 419, y: 787, width: 177.75, height: 42.41)
@@ -71,7 +71,7 @@ class MenuViewController: UIViewController {
             level2Button.alpha = 0.3
         }
         
-        let level3ButtonImage = UIImage(named: "nivel-3.png")
+        let level3ButtonImage = UIImage(named: "menu/nivel-3.png")
         let level3Button = UIButton()
         level3Button.setImage(level3ButtonImage, for: .normal)
         level3Button.frame = CGRect(x: 419, y: 1077, width: 178.32, height: 42.55)
@@ -110,22 +110,104 @@ class MenuViewController: UIViewController {
 }
 //tutorial
 class TutorialViewController: UIViewController {
-override func loadView() {
-    let view = UIView()
-    view.frame = CGRect(x: 0, y: 0, width: 1024, height: 1366)
-    view.backgroundColor = #colorLiteral(red: 0.9764705896, green: 0.850980401, blue: 0.5490196347, alpha: 1)
-    
-    let menuButton = UIButton()
-    menuButton.setTitle("Menu", for: .normal)
-    menuButton.setTitleColor(#colorLiteral(red: 1, green: 1, blue: 1, alpha: 1), for: .normal)
-    menuButton.frame = CGRect(x: 362, y: 250, width: 300, height: 300)
-    menuButton.addTarget(nil, action: #selector(goToMenu), for: .touchUpInside)
-    view.addSubview(menuButton)
-    self.view = view
+        let player = SKSpriteNode(imageNamed: "sprites/alegria/a.png")
+    override func loadView() {
+        let view = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 1366))
+        let scene = SKScene(size: CGSize(width: 1024, height: 1366))
+        scene.backgroundColor = #colorLiteral(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+        
+        let background = SKSpriteNode(imageNamed: "alegria-assets/bg-alegria.png")
+        background.scale(to: CGSize(width: 1024, height: 1366))
+        background.position = CGPoint(x: background.size.width/2, y: background.size.height/2)
+        
+        let ground = SKSpriteNode(imageNamed: "alegria-assets/ground.png")
+        ground.scale(to: CGSize(width: 1024, height: 200))
+        ground.position = CGPoint(x: ground.size.width/2, y: ground.size.height/2)
+        ground.physicsBody = SKPhysicsBody(rectangleOf: ground.size)
+        ground.physicsBody?.affectedByGravity = false
+        ground.physicsBody?.allowsRotation = false
+        ground.physicsBody?.isDynamic = false
+        
+        player.scale(to: CGSize(width: 102.26, height: 120))
+        player.anchorPoint = CGPoint.zero
+        player.position = CGPoint(x: 13, y: 500)
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.size, center: CGPoint(x: player.size.width/2, y: player.size.height/2))
+        player.physicsBody?.affectedByGravity = true
+        player.physicsBody?.allowsRotation = false
+        
+        let wallL = SKSpriteNode()
+        wallL.scale(to: CGSize(width: 2, height: 1366))
+        wallL.anchorPoint = CGPoint.zero
+        wallL.position = CGPoint(x: 40, y: 40)
+        wallL.physicsBody = SKPhysicsBody(rectangleOf: wallL.size)
+        wallL.physicsBody?.affectedByGravity = false
+               wallL.physicsBody?.allowsRotation = false
+               wallL.physicsBody?.isDynamic = false
+        
+        let leftImage = UIImage(named: "alegria-assets/esquerda.png")!
+        let leftButton = UIButton()
+        leftButton.setImage(leftImage, for: .normal)
+        leftButton.frame = CGRect(x: 0, y: 1166, width: 200, height: 200)
+        leftButton.addTarget(nil, action: #selector(moveLeft), for: .touchUpInside)
+        
+        let rightImage = UIImage(named: "alegria-assets/direita.png")!
+        let rightButton = UIButton()
+        rightButton.setImage(rightImage, for: .normal)
+        rightButton.frame = CGRect(x: 824, y: 1166, width: 200, height: 200)
+        rightButton.addTarget(nil, action: #selector(moveRight), for: .touchUpInside)
+        
+        let swapImage = UIImage(named: "alegria-assets/troca-personagem.png")!
+        let swapButton = UIButton()
+        swapButton.setImage(swapImage, for: .normal)
+        swapButton.frame = CGRect(x: 200, y: 1209, width: 115, height: 115)
+        swapButton.addTarget(nil, action: #selector(swapAvatar), for: .touchUpInside)
+        
+        let jumpImage = UIImage(named: "alegria-assets/pula.png")!
+        let jumpButton = UIButton()
+        jumpButton.setImage(jumpImage, for: .normal)
+        jumpButton.frame = CGRect(x: 709, y: 1209, width: 115, height: 115)
+        jumpButton.addTarget(nil, action: #selector(jump), for: .touchUpInside)
+        
+        scene.physicsWorld.gravity = CGVector(dx: 0, dy: -3)
+        view.presentScene(scene)
+        scene.addChild(background)
+        scene.addChild(ground)
+        scene.addChild(wallL)
+        scene.addChild(player)
+        view.showsPhysics = true;
+        
+        view.addSubview(leftButton)
+        view.addSubview(rightButton)
+        view.addSubview(swapButton)
+        view.addSubview(jumpButton)
+        self.view = view
     }
-    @IBAction func goToMenu() {
-        navigationController?.popToViewController(menu, animated: true)
-        navigationController?.navigationBar.isHidden = true
+    @IBAction func moveLeft() {
+        if (player.position.x - 120 < 0) {
+            player.run(SKAction.moveBy(x: 0 - player.position.x, y: 0, duration: 1.0))
+        }
+        else{
+            player.run(SKAction.moveBy(x: -120, y: 0, duration: 1.0))
+        }
+    }
+    @IBAction func moveRight() {
+        if (player.position.x + 120 > 904) {
+            player.run(SKAction.moveBy(x: 1024 - player.position.x, y: 0, duration: 1.0))
+        }
+        else{
+            player.run(SKAction.moveBy(x: 120, y: 0, duration: 1.0))
+        }
+    }
+    @IBAction func swapAvatar() {
+        print("mudou o avatarr")
+    }
+    @IBAction func jump() {
+        if (player.position.y + 500 > 1366) {
+            player.run(SKAction.moveBy(x: 0, y: 1366 - player.position.y, duration: 1.0))
+        }
+        else{
+            player.run(SKAction.moveBy(x: 0, y: 500, duration: 1.0))
+        }
     }
 }
 //nivel 1
