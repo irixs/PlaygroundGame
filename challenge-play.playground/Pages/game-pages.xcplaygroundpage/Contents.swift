@@ -110,7 +110,7 @@ class MenuViewController: UIViewController {
 }
 //tutorial
 class TutorialViewController: UIViewController {
-        let player = SKSpriteNode(imageNamed: "sprites/alegria/a.png")
+    var player = SKSpriteNode(imageNamed: "sprites/alegria/a.png")
     override func loadView() {
         let view = SKView(frame: CGRect(x: 0, y: 0, width: 1024, height: 1366))
         let scene = SKScene(size: CGSize(width: 1024, height: 1366))
@@ -128,21 +128,71 @@ class TutorialViewController: UIViewController {
         ground.physicsBody?.allowsRotation = false
         ground.physicsBody?.isDynamic = false
         
+        let wallL = SKSpriteNode(imageNamed: "alegria-assets/parede.png")
+        wallL.scale(to: CGSize(width: 6, height: 1366))
+        wallL.position = CGPoint(x: wallL.size.width/2, y: wallL.size.height/2)
+        wallL.physicsBody = SKPhysicsBody(rectangleOf: wallL.size)
+        wallL.physicsBody?.affectedByGravity = false
+        wallL.physicsBody?.allowsRotation = false
+        wallL.physicsBody?.isDynamic = false
+        
+        let wallR = SKSpriteNode(imageNamed: "alegria-assets/parede.png")
+        wallR.scale(to: CGSize(width: 6, height: 1366))
+        wallR.position = CGPoint(x: 1022, y: wallR.size.height/2)
+        wallR.physicsBody = SKPhysicsBody(rectangleOf: wallR.size)
+        wallR.physicsBody?.affectedByGravity = false
+        wallR.physicsBody?.allowsRotation = false
+        wallR.physicsBody?.isDynamic = false
+        
+        let block1 = SKSpriteNode(imageNamed: "alegria-assets/bloco.png")
+        block1.scale(to: CGSize(width: 128, height: 128))
+        block1.position = CGPoint(x: 639, y: 328)
+        block1.physicsBody = SKPhysicsBody(rectangleOf: block1.size)
+        block1.physicsBody?.affectedByGravity = false
+        block1.physicsBody?.allowsRotation = false
+        block1.physicsBody?.isDynamic = false
+
+        let block2 = SKSpriteNode(imageNamed: "alegria-assets/bloco.png")
+        block2.scale(to: CGSize(width: 128, height: 128))
+        block2.position = CGPoint(x: 767, y: 456)
+        block2.physicsBody = SKPhysicsBody(rectangleOf: block2.size)
+        block2.physicsBody?.affectedByGravity = false
+        block2.physicsBody?.allowsRotation = false
+        block2.physicsBody?.isDynamic = false
+        
+        let block3 = SKSpriteNode(imageNamed: "alegria-assets/bloco.png")
+        block3.scale(to: CGSize(width: 128, height: 128))
+        block3.position = CGPoint(x: 895, y: 584)
+        block3.physicsBody = SKPhysicsBody(rectangleOf: block3.size)
+        block3.physicsBody?.affectedByGravity = false
+        block3.physicsBody?.allowsRotation = false
+        block3.physicsBody?.isDynamic = false
+        
         player.scale(to: CGSize(width: 102.26, height: 120))
         player.anchorPoint = CGPoint.zero
         player.position = CGPoint(x: 13, y: 500)
         player.physicsBody = SKPhysicsBody(rectangleOf: player.size, center: CGPoint(x: player.size.width/2, y: player.size.height/2))
         player.physicsBody?.affectedByGravity = true
         player.physicsBody?.allowsRotation = false
+        let playerTexture = SKTexture(imageNamed: "sprites/alegria/a-1.png")
+        player = SKSpriteNode(texture: playerTexture)
+        player.scale(to: CGSize(width: 102.26, height: 120))
+        player.position = CGPoint(x: 13, y: 200)
+        player.anchorPoint = CGPoint.zero
+        player.physicsBody = SKPhysicsBody(rectangleOf: player.size, center: CGPoint(x: player.size.width/2, y: player.size.height/2))
+        player.physicsBody?.affectedByGravity = true
+        player.physicsBody?.allowsRotation = false
         
-        let wallL = SKSpriteNode()
-        wallL.scale(to: CGSize(width: 2, height: 1366))
-        wallL.anchorPoint = CGPoint.zero
-        wallL.position = CGPoint(x: 40, y: 40)
-        wallL.physicsBody = SKPhysicsBody(rectangleOf: wallL.size)
-        wallL.physicsBody?.affectedByGravity = false
-               wallL.physicsBody?.allowsRotation = false
-               wallL.physicsBody?.isDynamic = false
+        var multiplierForDirection: CGFloat = 1.0
+        var animationImages: [SKTexture] = []
+        for i in 1...7 {
+            let oneFrame = SKTexture(imageNamed: "sprites/alegria/a-\(i).png")
+            animationImages.append(oneFrame)
+        }
+        let animation = SKAction.animate(with: animationImages, timePerFrame: 2.0/20.0)
+        let animationonLoop = SKAction.repeatForever(animation)
+        player.xScale = abs(player.xScale) * multiplierForDirection
+        player.run(animationonLoop)
         
         let leftImage = UIImage(named: "alegria-assets/esquerda.png")!
         let leftButton = UIButton()
@@ -173,6 +223,10 @@ class TutorialViewController: UIViewController {
         scene.addChild(background)
         scene.addChild(ground)
         scene.addChild(wallL)
+        scene.addChild(wallR)
+        scene.addChild(block1)
+        scene.addChild(block2)
+        scene.addChild(block3)
         scene.addChild(player)
         view.showsPhysics = true;
         
